@@ -4,3 +4,4 @@ bower_components/
 
 build/
 dist/
+config/googlemaps_api_key.js
