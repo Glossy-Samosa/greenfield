@@ -3,6 +3,7 @@
 var mongoose = require('mongoose');
 
 var regions = mongoose.Schema({
-  name: String,
-  
-})
+  area: String,
+});
+
+exports.Region = mongoose.model('Region', regions);

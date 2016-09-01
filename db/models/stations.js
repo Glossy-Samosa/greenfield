@@ -5,5 +5,11 @@ var stationSchema = mongoose.Schema({
   stationName: String,
   latitude: Number,
   longitude: Number,
-  s2: String
-})
+  statusValue: String,
+  availableBikes: Number,
+  totalDocks: Number,
+  s2: { type: String, default: '' }
+
+});
+
+exports.Station = mongoose.model('Station', stationSchema);
