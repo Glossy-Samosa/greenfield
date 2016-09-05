@@ -33,8 +33,8 @@ var directionsService = new google.maps.DirectionsService();
 // destClosestStation is an object from our db that represents the closest station 
 // to the user's destination
 var getDirections = function (userLocation, destination, userClosestStation, destClosestStation) {
-  var userLocation = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
-  var destination = new google.maps.LatLng(destination.latitude, destination.longitude);
+  userLocation = new google.maps.LatLng(userLocation.latitude, userLocation.longitude);
+  destination = new google.maps.LatLng(destination.latitude, destination.longitude);
 
   // we are going to send this waypts array with our request so that the route that
   // google gives us will go through these areas. this way, we make sure the bike
