@@ -33,9 +33,7 @@ var getBikeStationData = function (callback) {
       });
 
       // save the station to our db
-      newStation.save(function(error) {
-        if (error) { console.log(error); }
-      });
+      newStation.save();
     });
 
   });
