@@ -2,7 +2,10 @@
 var mongoose = require('mongoose');
 
 var stationSchema = mongoose.Schema({
-  stationName: String,
+  stationName: {
+    type: String,
+    unique: true
+  },
   latitude: Number,
   longitude: Number,
   statusValue: String,

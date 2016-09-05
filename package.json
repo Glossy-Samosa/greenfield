@@ -2,9 +2,9 @@
   "name": "greenfield",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -17,8 +17,16 @@
   },
   "homepage": "https://github.com/Glossy-Samosa/greenfield#readme",
   "dependencies": {
+    "bluebird": "^3.4.6",
     "express": "^4.14.0",
+    "google-maps": "^3.2.1",
     "mongoose": "^4.5.10",
     "request": "^2.74.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-things": "^0.2.0",
+    "mocha": "^3.0.2",
+    "supertest": "^2.0.0"
   }
 }
