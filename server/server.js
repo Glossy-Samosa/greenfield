@@ -4,6 +4,8 @@ var request = require('request');
 var bodyParser = require('body-parser');
 // var GoogleMapsLoader = require('google-maps');
 
+var region = require('./utility/region');
+
 var app = express();
 
 // // load google maps stuffs
@@ -32,7 +34,7 @@ db.once('open', function() {
 app.use(bodyParser.json());
 
 //routing here
-
+app.use('/api/region', region);
 
 // initialize our server
 exports.app = app.listen(3000, function() {
