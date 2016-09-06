@@ -4,7 +4,7 @@ var request = require('request');
 var bodyParser = require('body-parser');
 // var GoogleMapsLoader = require('google-maps');
 
-var region = require('./utility/region');
+var region = require('./routes/region');
 
 var app = express();
 
