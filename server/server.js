@@ -1,7 +1,10 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var request = require('request');
+var bodyParser = require('body-parser');
 // var GoogleMapsLoader = require('google-maps');
+
+var region = require('./routes/region');
 
 var app = express();
 
@@ -27,9 +30,11 @@ db.once('open', function() {
   console.log('Database connected');
 });
 
+// middleware
+app.use(bodyParser.json());
 
 //routing here
-
+app.use('/api/region', region);
 
 // initialize our server
 exports.app = app.listen(3000, function() {
