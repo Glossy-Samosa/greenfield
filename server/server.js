@@ -1,24 +1,20 @@
 var express = require('express');
+var session = require('express-session');
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 var request = require('request');
 var bodyParser = require('body-parser');
-// var GoogleMapsLoader = require('google-maps');
-
 var region = require('./routes/region');
+
+// auth
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var User = require('../db/models/users.js').User;
+var login = require('./Auth/loginAuth.js');
+var signUp = require('./Auth/signUpAuth.js');
 
 var app = express();
 
-// // load google maps stuffs
-// GoogleMapsLoader.load(function(google) {
-//   new google.maps.Map(el, options);
-// });
-
-// GoogleMapsLoader.onLoad(function() {
-//   console.log('We just loaded Google Maps API!');
-// });
-// GoogleMapsLoader.LIBRARIES = ['geometry', 'places'];
-
-// GoogleMapsLoader.KEY = window.google_maps_API_KEY;
 
 // open mongoose connection
 mongoose.connect('mongodb://localhost/uberEco');
@@ -32,12 +28,30 @@ db.once('open', function() {
 
 // middleware
 app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 //routing here
 app.use('/api/region', region);
 
+app.post('/auth/signup', passport.authenticate('signup', {failureRedirect: '/signupFailure'}),
+  function(req, res) {
+    console.log('Signup successful!');
+    res.redirect('/');
+  });
+
+app.post('/auth/login', passport.authenticate('login', { failureRedirect: '/loginFailure' }),
+  function(req, res) {
+    console.log('Login successful!');
+    // redirect here when auth is successful
+    res.redirect('/');
+  });
+
+
+
 // initialize our server
-exports.app = app.listen(3000, function() {
+module.exports = app.listen(3000, function() {
   console.log('Listening on port 3000...');
 });
 
