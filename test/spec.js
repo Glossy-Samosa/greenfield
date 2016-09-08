@@ -16,36 +16,32 @@ var getBody = function (res) {
   return JSON.parse(res.text);
 };
 
-// var clearDB = function (done) {
-//   // Mongoose doesn't know how to pluralize 'pokemon'
-//   mongoose.connection.collections['pokemons'].remove(done);
-// };
+var clearDB = function (done) {
+  // clears out our users collection portion of the db
+  mongoose.connection.collections['users'].remove(done);
+};
 
 
 
 describe('UberEco', function () {
 
   before(function(done) {
-    // if (mongoose.connection.db) {
-    //   return done();
-    // }
     mongoose.createConnection(dbURI);
     done();
   });
 
   beforeEach(function (done) {
-    server = app;
+    var newUser = new User({
+      username: 'testUser',
+      password: 'bestPWever'
+    });
+    newUser.save();
+
     done();
   });
 
-  afterEach(function () {
-    // there is no close() method for express anymore
-    // apparently
-    // server.close();
-    //remove our dummy user
-    User.findOneAndRemove({
-      username: 'dead'
-    });
+  afterEach(function (done) {
+    mongoose.connection.collections['users'].remove(done);
   });
 
 
@@ -79,16 +75,13 @@ describe('UberEco', function () {
         username: 'dead',
         password: 'mau5'
       });
-      newUser.save();
-      User.find({
-        username: 'dead'
-      }, function(error, data) {
-        if (error) {
-          console.log(error);
-        } else {
+      newUser.save(function(error, res) {
+        User.find({
+          username: 'dead'
+        }, function(error, data) {
           expect(data.length).to.be.above(0);
-        }
-        done();
+          done();
+        });
       });
     });
 
@@ -105,7 +98,6 @@ describe('UberEco', function () {
       });
 
       newUser2.save(function(error) {
-        console.log(error);
         expect(error).to.exist;
         done();
       });
@@ -116,11 +108,27 @@ describe('UberEco', function () {
   describe('Utility Functions', function() {
     it('should be able to get bike station data', function(done) {
       var fn = require('../server/utility/getBikeStationData.js');
-      fn.getBikeStationData();
-      Station.find(function(error, data) {
-        expect(Object.keys(data).length).to.be.above(0);
-        done();
+      fn.getBikeStationData(function() {
+        Station.find(function(error, data) {
+          expect(Object.keys(data).length).to.be.above(0);
+          done();
+        });  
       });
+    });
+  });
+
+  describe('Authorization/Login/Signup Services', function() {
+    it('should be able to redirect a user trying to log in', function(done) {
+      request(app)
+        .post('/auth/login')
+        .send({username: 'testUser', password: 'bestPWever'})
+        .expect(302, done);
+    });
+    it('should sign up a new user', function(done) {
+      request(app)
+        .post('/auth/signup')
+        .send({username: 'testUser2', password: 'nyanCat'});
+      done();
     });
   });
 });

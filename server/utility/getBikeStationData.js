@@ -35,8 +35,11 @@ var getBikeStationData = function (callback) {
       // save the station to our db
       newStation.save();
     });
-
   });
+
+  if (callback) {
+    callback();
+  }
 };
 
 exports.getBikeStationData = getBikeStationData;
