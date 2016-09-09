@@ -40,27 +40,27 @@ app.use('/api/region', region);
 app.get('/', authenticateUser, function(req, res) {
   // if it reaches this point, we redirect them to user homepage
   // this isn't strictly necessary, just trying to protect homepage...
-  res.redirect('/');
+  res.status(200).send({ location: '/' });
 });
 
-app.post('/auth/signup', passport.authenticate('signup', {failureRedirect: '/signupFailure'}),
+app.post('/api/user/signup', passport.authenticate('signup', {failureRedirect: '/signupFailure'}),
   function(req, res) {
     console.log('Signup successful!');
-    res.redirect('/');
+    res.status(200).send({ location: '/' });
   });
 
-app.post('/auth/login', passport.authenticate('login', { failureRedirect: '/loginFailure' }),
+app.post('/api/user/login', passport.authenticate('login', { failureRedirect: '/loginFailure' }),
   function(req, res) {
     console.log('Login successful!');
     // redirect here when auth is successful
-    res.redirect('/');
+    res.status(200).send({ location: '/' });
   });
 
-app.get('/auth/logout', function(req, res) {
+app.get('/api/user/logout', function(req, res) {
   // destroy user session on logout
   console.log(req.user);
   req.logout();
-  res.redirect('/login');
+  res.status(200).send({ location: '/api/userlogin' });
 });
 
 
