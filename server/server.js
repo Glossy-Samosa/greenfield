@@ -43,13 +43,14 @@ app.get('/', authenticateUser, function(req, res) {
   res.status(200).send({ location: '/' });
 });
 
-app.post('/api/user/signup', passport.authenticate('signup', {failureRedirect: '/signupFailure'}),
+// passport will automatically return 401 status code on failed authentications
+app.post('/api/user/signup', passport.authenticate('signup'),
   function(req, res) {
     console.log('Signup successful!');
     res.status(200).send({ location: '/' });
   });
 
-app.post('/api/user/login', passport.authenticate('login', { failureRedirect: '/loginFailure' }),
+app.post('/api/user/login', passport.authenticate('login'),
   function(req, res) {
     console.log('Login successful!');
     // redirect here when auth is successful
@@ -62,6 +63,7 @@ app.get('/api/user/logout', function(req, res) {
   req.logout();
   res.status(200).send({ location: '/api/userlogin' });
 });
+
 
 
 
