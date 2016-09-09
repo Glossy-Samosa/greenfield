@@ -12,6 +12,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../db/models/users.js').User;
 var login = require('./auth/loginAuth.js');
 var signUp = require('./auth/signUpAuth.js');
+var authenticateUser = require('./auth/authUser.js');
 
 var app = express();
 
@@ -47,6 +48,17 @@ app.post('/auth/login', passport.authenticate('login', { failureRedirect: '/logi
     // redirect here when auth is successful
     res.redirect('/');
   });
+
+app.get('/auth/logout', function(req, res) {
+  // destroy user session on logout
+  req.session.destroy(function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect('/');
+    }
+  });
+});
 
 
 

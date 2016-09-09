@@ -25,12 +25,13 @@ passport.use('login', new LocalStrategy(
   }
 ));
 
-
+// this is called automatically by passport (?)
+// and gives our user his/her session
 passport.serializeUser(function(user, cb) {
   cb(null, user.id);
 });
 
-
+// this does the reverse of serializeUser...
 passport.deserializeUser(function(id, cb) {
   console.log(id);
   Users.findOne({ username: id }, function(err, user) {
