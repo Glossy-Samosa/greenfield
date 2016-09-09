@@ -142,8 +142,9 @@ describe('UberEco', function () {
     it('should not login a non-existing user', function(done) {
       request(app)
         .post('api/user/login')
-        .send( {username: 'doesntExist', password: 'somethingCrazy' })
+        .send( {username: 'asfljksajlkagjlg', password: 'oijawgoijwegjiwef' })
         .end(function(err, res) {
+          console.log(err, res);
           expect(err).to.exist;
           done();
         });

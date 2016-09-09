@@ -33,8 +33,7 @@ passport.serializeUser(function(user, cb) {
 
 // this does the reverse of serializeUser...
 passport.deserializeUser(function(id, cb) {
-  console.log(id);
-  Users.findOne({ username: id }, function(err, user) {
+  User.findOne({ username: id }, function(err, user) {
     if (err) { return cb (err); }
     cb (null, user);
   });
