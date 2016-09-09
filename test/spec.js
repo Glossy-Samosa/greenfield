@@ -122,7 +122,10 @@ describe('UberEco', function () {
       request(app)
         .post('/auth/login')
         .send({username: 'testUser', password: 'bestPWever'})
-        .expect(302, done);
+        .end(function(err, res) {
+          expect(res.body.location).to.equal('/');
+          done();
+        });
     });
 
     it('should be able to login an existing user', function(done) {
@@ -130,7 +133,10 @@ describe('UberEco', function () {
         .post('/auth/login')
         .send({username: 'testUser', password: 'bestPWever'})
         // test to see that the user is sent to the /
-        .expect('Location', /\//, done);
+        .end(function(err, res) {
+          expect(res.body.location).to.equal('/');
+          done();
+        });
     });
 
     it('should sign up a new user', function(done) {
@@ -148,7 +154,10 @@ describe('UberEco', function () {
         .end(function() {
           request(app)
           .get('/auth/logout')
-          .expect(302, done);
+          .end(function(err, res) {
+            expect(res.body.location).to.equal('/login');
+            done();
+          });
         });
     });
   });
