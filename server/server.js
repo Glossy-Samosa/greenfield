@@ -5,6 +5,7 @@ mongoose.Promise = require('bluebird');
 var request = require('request');
 var bodyParser = require('body-parser');
 var region = require('./routes/region');
+var destination = require('./routes/rideRequests');
 
 // auth
 var passport = require('passport');
@@ -16,9 +17,9 @@ var authenticateUser = require('./auth/authUser.js');
 
 var app = express();
 
-
 // open mongoose connection
 mongoose.connect('mongodb://localhost/uberEco');
+
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error:'));
@@ -36,6 +37,7 @@ app.use(passport.session());
 
 //routing here
 app.use('/api/region', region);
+app.use('/api/destination', destination);
 
 app.get('/', authenticateUser, function(req, res) {
   // if it reaches this point, we redirect them to user homepage
