@@ -6,7 +6,11 @@ var region = require('../utility/inRegion');
 
 router.post('/', function(req, res) {
 
-// // hard-coded req.body for Postman testing
+// =========================================
+// hard-coded req.body for Postman testing
+// =========================================
+
+// // Test One
 //   // Hack Reactor
 //   req.body.currentLocation = {
 //     lat: 37.783759,
@@ -17,6 +21,18 @@ router.post('/', function(req, res) {
 //     lat: 37.795581, 
 //     lon: -122.393411
 //   }
+
+// Test Two
+  // SF Conservatory of Music
+  req.body.currentLocation = {
+    lat: 37.774929,
+    lon: -122.419416
+  }
+  // Ferry Building
+  req.body.destination = {
+    lat: 37.776687, 
+    lon: -122.394857
+  }
 
  var destLat = req.body.destination.lat;
  var destLon = req.body.destination.lon;
