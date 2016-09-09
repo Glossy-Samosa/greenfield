@@ -1,10 +1,12 @@
 // middleware to ensure that our user is authenticated
 
-exports.authenticateUser = function(req, res, next) {
+var authenticateUser = function(req, res, next) {
   if (!req.user) {
     // if the user doesn't have a session, gtfo
-    return res.redirect('/');
+    return res.redirect('/login');
   } else {
     next();
   }
 };
+
+module.exports = authenticateUser;

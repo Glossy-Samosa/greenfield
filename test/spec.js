@@ -124,11 +124,32 @@ describe('UberEco', function () {
         .send({username: 'testUser', password: 'bestPWever'})
         .expect(302, done);
     });
+
+    it('should be able to login an existing user', function(done) {
+      request(app)
+        .post('/auth/login')
+        .send({username: 'testUser', password: 'bestPWever'})
+        // test to see that the user is sent to the /
+        .expect('Location', /\//, done);
+    });
+
     it('should sign up a new user', function(done) {
       request(app)
         .post('/auth/signup')
         .send({username: 'testUser2', password: 'nyanCat'});
       done();
+    });
+
+    // not sure if this test is 100% functional
+    it('should be able to log out an existing user', function(done) {
+      request(app)
+        .post('/auth/signup')
+        .send({ username: 'testUser3', password: 'godzillaaaa' })
+        .end(function() {
+          request(app)
+          .get('/auth/logout')
+          .expect(302, done);
+        });
     });
   });
 });

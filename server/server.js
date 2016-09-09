@@ -28,6 +28,7 @@ db.once('open', function() {
 });
 
 // middleware
+app.use(session({ secret: 'glossy-samosa' }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -35,6 +36,12 @@ app.use(passport.session());
 
 //routing here
 app.use('/api/region', region);
+
+app.get('/', authenticateUser, function(req, res) {
+  // if it reaches this point, we redirect them to user homepage
+  // this isn't strictly necessary, just trying to protect homepage...
+  res.redirect('/');
+});
 
 app.post('/auth/signup', passport.authenticate('signup', {failureRedirect: '/signupFailure'}),
   function(req, res) {
@@ -51,13 +58,9 @@ app.post('/auth/login', passport.authenticate('login', { failureRedirect: '/logi
 
 app.get('/auth/logout', function(req, res) {
   // destroy user session on logout
-  req.session.destroy(function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect('/');
-    }
-  });
+  console.log(req.user);
+  req.logout();
+  res.redirect('/login');
 });
 
 
