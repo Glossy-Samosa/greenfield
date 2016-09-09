@@ -16,7 +16,7 @@ passport.use('login', new LocalStrategy(
       // compare passwords
       bcrypt.compare(password, user.password, function(error, response) {
         if (error) {
-          return cb(err);
+          return cb(error);
         } else {
           return cb(null, user);
         }
