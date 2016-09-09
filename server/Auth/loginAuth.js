@@ -1,6 +1,7 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../../db/models/users.js').User;
+var bcrypt = require('bcrypt');
 
 
 // this is our login fn, basically when you call passport.authenticate()
@@ -12,18 +13,25 @@ passport.use('login', new LocalStrategy(
     User.findOne({ username: username }, function (err, user) {
       if (err) { return cb(err); }
       if (!user) { return cb(null, false); }
-      if (user.password !== password) { return cb(null, false); }
-      return cb(null, user);
+      // compare passwords
+      bcrypt.compare(password, user.password, function(error, response) {
+        if (error) {
+          return cb(error);
+        } else {
+          return cb(null, user);
+        }
+      });
     });
   }
 ));
 
-
+// this is called automatically by passport (?)
+// and gives our user his/her session
 passport.serializeUser(function(user, cb) {
   cb(null, user.id);
 });
 
-
+// this does the reverse of serializeUser...
 passport.deserializeUser(function(id, cb) {
   console.log(id);
   Users.findOne({ username: id }, function(err, user) {
