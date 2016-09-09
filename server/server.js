@@ -10,8 +10,8 @@ var region = require('./routes/region');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../db/models/users.js').User;
-var login = require('./Auth/loginAuth.js');
-var signUp = require('./Auth/signUpAuth.js');
+var login = require('./auth/loginAuth.js');
+var signUp = require('./auth/signUpAuth.js');
 
 var app = express();
 
