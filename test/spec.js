@@ -139,11 +139,24 @@ describe('UberEco', function () {
         });
     });
 
+    it('should not login a non-existing user', function(done) {
+      request(app)
+        .post('api/user/login')
+        .send( {username: 'doesntExist', password: 'somethingCrazy' })
+        .end(function(err, res) {
+          expect(err).to.exist;
+          done();
+        });
+    });
+
     it('should sign up a new user', function(done) {
       request(app)
         .post('/api/user/signup')
-        .send({username: 'testUser2', password: 'nyanCat'});
-      done();
+        .send({username: 'testUser2', password: 'nyanCat'})
+        .end(function(err, res) {
+          expect(res.body.location).to.equal('/');
+          done();
+        });
     });
 
     // not sure if this test is 100% functional
