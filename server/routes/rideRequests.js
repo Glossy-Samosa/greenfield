@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var getCoordinates = require('../../utility/getCoordinates');
+var getCoordinates = require('../utility/getCoordinates');
 
 // // hard-coded for Postman testing
 //   // Hack Reactor
