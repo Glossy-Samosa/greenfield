@@ -1,0 +1,96 @@
+---
+swagger: "2.0"
+info:
+  description: "Stop being lazy and go rent a bike with UberEco."
+  version: "1.0.0"
+  title: "UberEco API"
+host: "api.to_be_decided.com"
+basePath: "/"
+schemes:
+- "https"
+produces:
+- "application/json"
+paths:
+  /api/user/login:
+    post:
+      tags:
+      - "login"
+      summary: "User Login"
+      description: "The login endpoint takes an object literal that has a username\
+        \ and password property and attempts to find that user in the database. If\
+        \ no error is encountered, the user is stored in the database and a response\
+        \ is sent to the client containing an object with a location property that\
+        \ indicates which page the client app should render next.\n"
+      operationId: "apiUserLoginPOST"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "Username"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "Password"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "an object with a location property"
+          schema:
+            $ref: "#/definitions/Response"
+        418:
+          description: "login error"
+      x-swagger-router-controller: "Login"
+  /api/user/logout:
+    get:
+      summary: "Logout"
+      description: "The logout endpoint logs out the user by closing the user's session.\
+        \ The client is then sent an object literal with a location property indicating\
+        \ that the client should render the login page.\n"
+      operationId: "apiUserLogoutGET"
+      parameters: []
+      responses:
+        200:
+          description: "An object with a location property"
+          schema:
+            $ref: "#/definitions/Response"
+        default:
+          description: "Unexpected error"
+      x-swagger-router-controller: "Default"
+  /api/user/signup:
+    post:
+      tags:
+      - "User"
+      summary: "User Signup"
+      description: "The user signup endpoint will attempt to register an account with\
+        \ the API."
+      operationId: "apiUserSignupPOST"
+      parameters: []
+      responses:
+        200:
+          description: "An object with a location property"
+          schema:
+            $ref: "#/definitions/Response"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "User"
+definitions:
+  Response:
+    type: "object"
+    properties:
+      location:
+        type: "string"
+        description: "Indicator that should be used to tell the cient what page to\
+          \ render next."
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+      fields:
+        type: "string"
