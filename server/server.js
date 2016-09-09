@@ -12,7 +12,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../db/models/users.js').User;
 var login = require('./auth/loginAuth.js');
-var signUp = require('./auth/signUpAuth.js');
+var signUp = require('./auth/signupAuth.js');
 var authenticateUser = require('./auth/authUser.js');
 
 var app = express();
