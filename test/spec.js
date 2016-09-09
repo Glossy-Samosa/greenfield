@@ -120,7 +120,7 @@ describe('UberEco', function () {
   describe('Authorization/Login/Signup Services', function() {
     it('should be able to redirect a user trying to log in', function(done) {
       request(app)
-        .post('/auth/login')
+        .post('/api/user/login')
         .send({username: 'testUser', password: 'bestPWever'})
         .end(function(err, res) {
           expect(res.body.location).to.equal('/');
@@ -130,7 +130,7 @@ describe('UberEco', function () {
 
     it('should be able to login an existing user', function(done) {
       request(app)
-        .post('/auth/login')
+        .post('/api/user/login')
         .send({username: 'testUser', password: 'bestPWever'})
         // test to see that the user is sent to the /
         .end(function(err, res) {
@@ -141,7 +141,7 @@ describe('UberEco', function () {
 
     it('should sign up a new user', function(done) {
       request(app)
-        .post('/auth/signup')
+        .post('/api/user/signup')
         .send({username: 'testUser2', password: 'nyanCat'});
       done();
     });
@@ -149,13 +149,13 @@ describe('UberEco', function () {
     // not sure if this test is 100% functional
     it('should be able to log out an existing user', function(done) {
       request(app)
-        .post('/auth/signup')
+        .post('/api/user/signup')
         .send({ username: 'testUser3', password: 'godzillaaaa' })
         .end(function() {
           request(app)
-          .get('/auth/logout')
+          .get('/api/user/logout')
           .end(function(err, res) {
-            expect(res.body.location).to.equal('/login');
+            expect(res.body.location).to.equal('/api/userlogin');
             done();
           });
         });

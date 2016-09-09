@@ -60,7 +60,7 @@ app.get('/api/user/logout', function(req, res) {
   // destroy user session on logout
   console.log(req.user);
   req.logout();
-  res.status(200).send({ location: '/login' });
+  res.status(200).send({ location: '/api/userlogin' });
 });
 
 
