@@ -17,9 +17,9 @@ var authenticateUser = require('./auth/authUser.js');
 
 var app = express();
 
-
 // open mongoose connection
 mongoose.connect('mongodb://localhost/uberEco');
+
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error:'));
