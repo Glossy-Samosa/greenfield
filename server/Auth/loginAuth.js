@@ -16,7 +16,7 @@ passport.use('login', new LocalStrategy(
       // compare passwords
       bcrypt.compare(password, user.password, function(error, response) {
         if (error) {
-          return cb(error);
+          return cb(err);
         } else {
           return cb(null, user);
         }
@@ -33,7 +33,6 @@ passport.serializeUser(function(user, cb) {
 
 // this does the reverse of serializeUser...
 passport.deserializeUser(function(id, cb) {
-  console.log(id);
   Users.findOne({ username: id }, function(err, user) {
     if (err) { return cb (err); }
     cb (null, user);
