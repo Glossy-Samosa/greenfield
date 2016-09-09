@@ -59,11 +59,8 @@ exports.getCoordinates = function(req, res) {
     var distance1 = getDistance(data.currentLocation.lat, data.currentLocation.lon, data.stationA.lat, data.stationA.lon);
     var distance2 = getDistance(data.stationB.lat, data.stationB.lon, data.destination.lat, data.destination.lon);
 
+    // update bike station data in db
     // getBikeStationData();
-      
-    // iterate over each station document in the Station model
-      // if the station has bikes available AND if the distance is less than previous bike station distance
-        // get station A (B) to that station
 
     Station.find({}, function(err, stations) {
       
