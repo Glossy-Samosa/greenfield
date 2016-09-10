@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Station = require('../../db/models/stations').Station;
+var db = mongoose.connection;
 var getDistance = require('./distance');
 var s2 = require('./s2');
 var inRegion = require('./inRegion');
@@ -17,7 +18,7 @@ exports.getCoordinates = function(req, res) {
 
   if ( !inRegion.inRegion(destinationLat, destinationLon) ) {
     
-    console.alert( 'This is awkward. Looks like you\'re a teapot.' );
+    res.sendStatus(404);
 
   } else {
 
@@ -27,12 +28,12 @@ exports.getCoordinates = function(req, res) {
         lon: currentLon,
       },
       stationA: { // defaults to Powell St. BART: lat: 37.783871, lon: -122.408433
-        lat: null,
-        lon: null,
+        lat: 37.783871,
+        lon: -122.408433,
       },
       stationB: { // defaults to City Hall: lat: 37.778744, lon: -122.418104
-        lat: null,
-        lon: null,
+        lat: 37.778744,
+        lon: -122.418104,
       },
       destination: {
         lat: destinationLat,
@@ -45,13 +46,13 @@ exports.getCoordinates = function(req, res) {
     // update bike station data
     getBikeStationData.getBikeStationData();
 
-    Station.find({}, function(err, stations) {
-      
+    Station.find(function(err, stations) {
       if (err) throw err;
 
-      stations.each(function(err, station) {
+      stations.forEach(function(station) {
         if (station.availableBikes > 0) {
           if ( getDistance.getDistance(currentLat, currentLon, station.latitude, station.longitude) < distance1 ) {
+            console.log('trying to reassign values');
             data.stationA.lat = station.latitude;
             data.stationA.lon = station.longitude;
           }
@@ -62,10 +63,10 @@ exports.getCoordinates = function(req, res) {
           }
         }        
       })
-    
+      
+      console.log(data);
+      return res.json(data);
     })
-
-  return res.json(data);
   
   }
 };
