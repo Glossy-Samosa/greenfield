@@ -10,7 +10,7 @@
 
 ## Documentation
 
-If no other documentation is readily available, refer to the uberEco.json file in the \
+If no other documentation is readily available, refer to the uberEco.json file in the 
 repository and copy & paste that json file into the swagger.io editor.
 
 ## Table of Contents
