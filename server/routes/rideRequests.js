@@ -3,8 +3,8 @@ var router = express.Router();
 var navigation = require('../utility/getCoordinates');
 var region = require('../utility/inRegion');
 
-
-router.post('/api/navigation', function(req, res) {
+// /api/navigation/
+router.post('/', function(req, res) {
 
   // Test origin: SF Conservatory of Music
   req.body.currentLocation = req.body.currentLocation || {

@@ -69,6 +69,6 @@ app.get('/api/user/logout', function(req, res) {
 
 // initialize our server
 module.exports = app.listen(3000, function() {
-  console.log('Listening on port 3000...');
+  console.log('Listening on port 3000 ...');
 });
 

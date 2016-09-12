@@ -178,23 +178,32 @@ describe('UberEco', function () {
   });
 
   describe('riderequests.js', function() {
-    it('should return the closest bike stations to the user and destination', function(done) {
+    it('should return the closest bike station to the destination', function(done) {
       request(app)
-        .post('/')
+        .post('/api/navigation/')
         // lat and lon correspond with where HR is
         .send({
           currentLocation: { lat: 37.783490, lon: -122.409005 },
-          destination: { lat: 37.795241, lon: -122.393658 }
+          destination: { lat: 37.794557, lon: -122.411916 }
         })
         .end(function(err, res) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(res.body);
-          }
+          expect(res.body.stationB.name).to.not.equal('San Francisco City Hall');
           done();
         });
 
+    });
+
+    it('should return the closest bike station to the user', function(done) {
+      request(app)
+        .post('/api/navigation/')
+        .send({
+          currentLocation: { lat: 37.783490, lon: -122.409005 },
+          destination: { lat: 37.794557, lon: -122.411916 }
+        })
+        .end(function(err, res) {
+          // this may fail if num bikes available at powell is 0
+          expect(res.body.stationA.name).to.equal('Powell Street BART');
+        });
     });
   });  
 });
