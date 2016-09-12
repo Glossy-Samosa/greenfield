@@ -131,17 +131,6 @@ describe('UberEco', function () {
         });
     });
 
-    it('should redirect a logged in user', function(done) {
-      request(app)
-        .post('/api/user/login')
-        .send({username: 'testUser', password: 'bestPWever'})
-        // test to see that the user is sent to the /
-        .end(function(err, res) {
-          expect(res.body.location).to.equal('/');
-          done();
-        });
-    });
-
     it('should not login a non-existing user', function(done) {
       request(app)
         .post('api/user/login')
