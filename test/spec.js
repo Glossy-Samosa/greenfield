@@ -183,6 +183,8 @@ describe('UberEco', function () {
         .post('/api/navigation/')
         // lat and lon correspond with where HR is
         .send({
+          // current location is hack reactor
+          // destination is cable museum
           currentLocation: { lat: 37.783490, lon: -122.409005 },
           destination: { lat: 37.794557, lon: -122.411916 }
         })

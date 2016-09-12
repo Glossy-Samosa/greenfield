@@ -58,12 +58,14 @@ exports.getCoordinates = function(req, res) {
             data.stationA.name = station.stationName;
             data.stationA.lat = station.latitude;
             data.stationA.lon = station.longitude;
+            distance1 = getDistance.getDistance(currentLat, currentLon, station.latitude, station.longitude);
           }
 
-          if ( getDistance.getDistance(station.latitude, station.longitude, data.destination.lat, data.destination.lon) < distance2 ) {
+          if ( getDistance.getDistance( data.destination.lat, data.destination.lon, station.latitude, station.longitude ) < distance2 ) {
             data.stationB.name = station.stationName;
             data.stationB.lat = station.latitude;
             data.stationB.lon = station.longitude;
+            distance2 = getDistance.getDistance(data.destination.lat, data.destination.lon, station.latitude, station.longitude);
           }
         }        
       });
