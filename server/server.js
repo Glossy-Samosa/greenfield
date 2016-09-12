@@ -1,5 +1,6 @@
 var express = require('express');
 var session = require('express-session');
+var cookieParser = require('cookie-parser');
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 var request = require('request');
@@ -33,6 +34,7 @@ app.use(session({ secret: 'glossy-samosa' }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cookieParser());
 
 
 //routing here
@@ -61,8 +63,14 @@ app.post('/api/user/login', passport.authenticate('login'),
 
 app.get('/api/user/logout', function(req, res) {
   // destroy user session on logout
-  console.log(req.user);
-  req.logout();
+  // req.session.destroy() actually gets rid of the session,
+  // req.logout() doesn't really, not sure why
+  if (req.session) {
+    req.session.destroy();    
+  } else {
+    console.log('?? There was no req.session to destroy on logout ... ');    
+  }
+  console.log('User was logged out!');
   res.status(200).send({ location: '/api/userlogin' });
 });
 
