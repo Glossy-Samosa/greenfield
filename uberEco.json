@@ -89,6 +89,37 @@
                     }
                 }
             }
+        },
+        "/api/region": {
+            "post": {
+                "summary": "Check region availability",
+                "description": "The endpoint checks whether you can use the app in this region",
+                "parameters": [
+                    {
+                        "name": "latitude",
+                        "in": "query",
+                        "description": "latitude",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "query",
+                        "description": "longitude",
+                        "required": true,
+                        "type": "number"
+                    }
+                ],
+                "tags": [],
+                "responses": {
+                    "200": {
+                        "description": "user can use app at current location",
+                    },
+                    "404": {
+                        "description": "current location is not found",
+                    }
+                }
+            }
         }
     },
     "definitions": {
