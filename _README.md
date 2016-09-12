@@ -1,12 +1,17 @@
 # Project Name
 
-> Pithy project description
+> UberEco (Server)
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Lorenzo Engelen
+  - __Scrum Master__: Caroline Shea
+  - __Development Team Members__: John Trecker, Joseph Yu
+
+## Documentation
+
+If no other documentation is readily available, refer to the uberEco.json file in the \
+repository and copy & paste that json file into the swagger.io editor.
 
 ## Table of Contents
 
@@ -20,26 +25,23 @@
 
 ## Usage
 
-> Some usage instructions
+> Start up the server by running server.js.
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 6.4.0
+- Mongoose 3.2.9
 
 ## Development
+
+- Mocha 3.0.2
 
 ### Installing Dependencies
 
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
 
 ### Roadmap
