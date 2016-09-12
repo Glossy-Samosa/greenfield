@@ -10,7 +10,10 @@ var User = require('../db/models/users.js').User;
 
 chai.use(require('chai-things'));
 
-var dbURI = 'mongodb://localhost/pokemontest';
+var dbURI = 'mongodb://localhost/uberEco';
+
+// HAVE MONGOD RUNNING IN TERMINAL READY TO ACCEPT CONNECTIONS
+// BEFORE RUNNING TESTS
 
 var getBody = function (res) {
   return JSON.parse(res.text);
@@ -128,7 +131,7 @@ describe('UberEco', function () {
         });
     });
 
-    it('should be able to login an existing user', function(done) {
+    it('should redirect a logged in user', function(done) {
       request(app)
         .post('/api/user/login')
         .send({username: 'testUser', password: 'bestPWever'})
@@ -160,8 +163,7 @@ describe('UberEco', function () {
         });
     });
 
-    // not sure if this test is 100% functional
-    it('should be able to log out an existing user', function(done) {
+    it('should redirect a user once they are logged out', function(done) {
       request(app)
         .post('/api/user/signup')
         .send({ username: 'testUser3', password: 'godzillaaaa' })
@@ -169,10 +171,13 @@ describe('UberEco', function () {
           request(app)
           .get('/api/user/logout')
           .end(function(err, res) {
+            console.log(err, res);
             expect(res.body.location).to.equal('/api/userlogin');
             done();
-          });
+          }); 
         });
     });
+
+    it('should ')
   });
 });
