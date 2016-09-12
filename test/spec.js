@@ -120,7 +120,7 @@ describe('UberEco', function () {
     });
   });
 
-  describe('Authorization/Login/Signup Services', function() {
+  describe('/api/user', function() {
     it('should be able to redirect a user trying to log in', function(done) {
       request(app)
         .post('/api/user/login')
@@ -177,7 +177,7 @@ describe('UberEco', function () {
     });
   });
 
-  describe('riderequests.js', function() {
+  describe('/api/navigation/', function() {
     it('should return the closest bike station to the destination', function(done) {
       request(app)
         .post('/api/navigation/')
@@ -203,6 +203,37 @@ describe('UberEco', function () {
         .end(function(err, res) {
           // this may fail if num bikes available at powell is 0
           expect(res.body.stationA.name).to.equal('Powell Street BART');
+          done();
+        });
+    });
+  });
+
+  describe('/api/region/', function() {
+    it('should return 200 status for a serviceable area', function(done) {
+      request(app)
+        .post('/api/region/')
+        .send({
+          // service at hack reactor
+          latitude: 37.783490,
+          longitude: -122.409005
+        })
+        .end(function(err, res) {
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+
+    it('should return false for a unserviced area', function(done) {
+      request(app)
+        .post('/api/region/')
+        .send({
+          // we dont service alcatraz
+          latitude: 37.825970,
+          longitude: -122.422071
+        })
+        .end(function(err, res) {
+          expect(res.status).to.equal(404);
+          done();
         });
     });
   });  

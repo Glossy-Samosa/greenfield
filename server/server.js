@@ -45,7 +45,7 @@ app.get('/', authenticateUser, function(req, res) {
   res.status(200).send({ location: '/' });
 });
 
-// passport will automatically return 401 status code on failed authentications
+// passport will automatically return 401 unauthorized status code on failed authentications
 app.post('/api/user/signup', passport.authenticate('signup'),
   function(req, res) {
     console.log('Signup successful!');
