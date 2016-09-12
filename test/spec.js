@@ -147,7 +147,6 @@ describe('UberEco', function () {
         .post('api/user/login')
         .send( {username: 'asfljksajlkagjlg', password: 'oijawgoijwegjiwef' })
         .end(function(err, res) {
-          console.log(err, res);
           expect(err).to.exist;
           done();
         });
@@ -171,13 +170,31 @@ describe('UberEco', function () {
           request(app)
           .get('/api/user/logout')
           .end(function(err, res) {
-            console.log(err, res);
             expect(res.body.location).to.equal('/api/userlogin');
             done();
           }); 
         });
     });
-
-    it('should ')
   });
+
+  describe('riderequests.js', function() {
+    it('should return the closest bike stations to the user and destination', function(done) {
+      request(app)
+        .post('/')
+        // lat and lon correspond with where HR is
+        .send({
+          currentLocation: { lat: 37.783490, lon: -122.409005 },
+          destination: { lat: 37.795241, lon: -122.393658 }
+        })
+        .end(function(err, res) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(res.body);
+          }
+          done();
+        });
+
+    });
+  });  
 });
