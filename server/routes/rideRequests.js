@@ -6,12 +6,12 @@ var region = require('../utility/inRegion');
 // /api/navigation/
 router.post('/', function(req, res) {
 
-  // Test origin: SF Conservatory of Music
+  // Default origin: SF Conservatory of Music
   req.body.currentLocation = req.body.currentLocation || {
     lat: 37.774929,
     lon: -122.419416
   };
-  // Test destination: Caltrain Station
+  // Default destination: Caltrain Station
   req.body.destination = req.body.destination || {
     lat: 37.776687, 
     lon: -122.394857

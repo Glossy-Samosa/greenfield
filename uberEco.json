@@ -120,6 +120,51 @@
                     }
                 }
             }
+        },
+        "/api/navigation": {
+            "post": {
+                "summary": "Returns nearest bike stations to both user location and destination with additional station name and user-imputed data",
+                "description": "The endpoint checks whether the destination is in the supported region, then calculates nearest distances by iterating through Bay Area Bike Share stations that have bikes available.",
+                "parameters": [
+                    {
+                        "name": "currentLocation.lat",
+                        "in": "query",
+                        "description": "latitude",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "currentLocation.lon",
+                        "in": "query",
+                        "description": "longitude",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "destination.lat",
+                        "in": "query",
+                        "description": "latitude",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "destination.lon",
+                        "in": "query",
+                        "description": "longitude",
+                        "required": true,
+                        "type": "number"
+                    }
+                ],
+                "tags": [],
+                "responses": {
+                    "200": {
+                        "description": "user can use app for imputed destination",
+                    },
+                    "404": {
+                        "description": "imputed destination is not found",
+                    }
+                }
+            }
         }
     },
     "definitions": {

@@ -1,3 +1,5 @@
+var directions = require('google-maps');
+
 exports.getDistance = function(lat1,lon1,lat2,lon2) {
   function deg2rad(deg) {
     return deg * (Math.PI/180)
@@ -15,3 +17,7 @@ exports.getDistance = function(lat1,lon1,lat2,lon2) {
   var d = R * c; // Distance in km
   return d;
 };
+
+exports.getDirections = function(lat1, lon1, lat2, lon2) {
+  // for google-maps step-by-step directions if that's what your heart desires...
+}
