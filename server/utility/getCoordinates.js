@@ -7,7 +7,7 @@ var inRegion = require('./inRegion');
 var getBikeStationData = require('./getBikeStationData');
 
 // ==========================================================================================
-// Make sure req.body.currentLocation and req.body.destination are appropriately named below.
+// Returns JSON of user location, destination, and nearest bike stations to both.
 // ==========================================================================================
 
 exports.getCoordinates = function(req, res) {
@@ -49,6 +49,7 @@ exports.getCoordinates = function(req, res) {
     // update bike station data
     getBikeStationData.getBikeStationData();
 
+    // search db
     Station.find(function(err, stations) {
       if (err) { throw err; }
 

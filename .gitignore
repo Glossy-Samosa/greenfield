@@ -3,5 +3,6 @@ bower_components/
 *.log
 
 build/
+.DS_store
 dist/
 config/googlemaps_api_key.js
