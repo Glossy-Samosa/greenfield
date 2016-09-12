@@ -11,8 +11,14 @@ passport.use('login', new LocalStrategy(
     console.log('Authenticating .... ' + username);
     // look up our user
     User.findOne({ username: username }, function (err, user) {
-      if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
+      if (err) {
+        console.log('Login error: ' + err);
+        return cb(err);
+      }
+      if (!user) {
+        console.log(username + ' not found in the database!');
+        return cb(null, false);
+      }
       // compare passwords
       bcrypt.compare(password, user.password, function(error, response) {
         if (error) {
