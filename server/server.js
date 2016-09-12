@@ -5,7 +5,7 @@ mongoose.Promise = require('bluebird');
 var request = require('request');
 var bodyParser = require('body-parser');
 var region = require('./routes/region');
-var destination = require('./routes/rideRequests');
+var navigation = require('./routes/rideRequests');
 
 // auth
 var passport = require('passport');
@@ -37,7 +37,7 @@ app.use(passport.session());
 
 //routing here
 app.use('/api/region', region);
-app.use('/api/destination', destination);
+app.use('/api/navigation', navigation);
 
 app.get('/', authenticateUser, function(req, res) {
   // if it reaches this point, we redirect them to user homepage
