@@ -28,12 +28,14 @@ exports.getCoordinates = function(req, res) {
         lon: currentLon,
       },
       stationA: { // defaults to Powell St. BART: lat: 37.783871, lon: -122.408433
-        lat: 0,
-        lon: 0,
+        name: 'Powell Street BART',
+        lat: 37.783871,
+        lon: -122.408433,
       },
       stationB: { // defaults to City Hall: lat: 37.778744, lon: -122.418104
-        lat: 0,
-        lon: 0,
+        name: 'San Francisco City Hall',
+        lat: 37.778744,
+        lon: -122.418104,
       },
       destination: {
         lat: destinationLat,
@@ -53,12 +55,13 @@ exports.getCoordinates = function(req, res) {
       stations.forEach(function(station) {
         if (station.availableBikes > 0) {
           if ( getDistance.getDistance(currentLat, currentLon, station.latitude, station.longitude) < distance1 ) {
-            console.log('trying to reassign values');
+            data.stationA.name = station.stationName;
             data.stationA.lat = station.latitude;
             data.stationA.lon = station.longitude;
           }
 
           if ( getDistance.getDistance(station.latitude, station.longitude, data.destination.lat, data.destination.lon) < distance2 ) {
+            data.stationB.name = station.stationName;
             data.stationB.lat = station.latitude;
             data.stationB.lon = station.longitude;
           }
